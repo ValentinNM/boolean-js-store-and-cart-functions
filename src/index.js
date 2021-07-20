@@ -76,6 +76,135 @@ const store = {
   ]
 };
 
+const appleStore = {
+  location: "London",
+  products: [
+    {
+      name: "iPhone 6S",
+      type: "mobile",
+      stock: {
+        incomingDelivery: false,
+        quantity: 450
+      },
+      price: 600
+    },
+    {
+      name: "iPhone 10",
+      type: "mobile",
+      stock: {
+        incomingDelivery: false,
+        quantity: 20
+      },
+      price: 1000
+    },
+    {
+      name: "iPhone 12",
+      type: "mobile",
+      stock: {
+        incomingDelivery: true,
+        quantity: 0
+      },
+      price: 1400
+    },
+    {
+      name: "iPad Pro",
+      type: "tablet",
+      stock: {
+        incomingDelivery: true,
+        quantity: 100
+      },
+      price: 600
+    },
+    {
+      name: "iPad mini",
+      type: "tablet",
+      stock: {
+        incomingDelivery: false,
+        quantity: 300
+      },
+      price: 600
+    },
+    {
+      name: "MacBook Pro",
+      type: "computer",
+      stock: {
+        incomingDelivery: false,
+        quantity: 80
+      },
+      price: 2400
+    },
+    {
+      name: "MacBook Air",
+      type: "computer",
+      stock: {
+        incomingDelivery: false,
+        quantity: 200
+      },
+      price: 1800
+    },
+    {
+      name: "iMac",
+      type: "computer",
+      stock: {
+        incomingDelivery: true,
+        quantity: 15
+      },
+      price: 2300
+    }
+  ]
+};
+
+const jeepStore = {
+  location: "London",
+  products: [
+    {
+      name: "Roof Rack",
+      type: "accessory",
+      stock: {
+        incomingDelivery: false,
+        stock: 350
+      },
+      price: 3500
+    },
+    {
+      name: "Spare Tyre",
+      type: "accessory",
+      stock: {
+        incomingDelivery: true,
+        stock: 100
+      },
+      price: 800
+    },
+    {
+      name: "Jeep Wrangler Unlimited Polar",
+      type: "car",
+      stock: {
+        incomingDelivery: true,
+        stock: 40
+      },
+      price: 37500
+    },
+    {
+      name: "Jeep Wrangler Unlimited Dragon",
+      type: "car",
+      stock: {
+        incomingDelivery: false,
+        stock: 120
+      },
+      price: 69000
+    },
+    {
+      name: "Jeep Grand Cherokee",
+      type: "car",
+      stock: {
+        incomingDelivery: false,
+        stock: 250
+      },
+      price: 52000
+    }
+  ]
+};
+
 // Each section needs it's own for loop
 // DO NOT change any of the code
 //
@@ -131,11 +260,25 @@ console.log("expensiveProducts: ", expensiveProducts);
 // - that takes an array as a parameter
 // - returns an array of products that have an incoming delivery
 
-const productsThatNeedToBeReceived = function( );
-const incomingDeliveries = []
+// const productsThatNeedToBeReceived = ;
 
-function ()
+// function findIncomingDeliveries(products) {
+//   console.log("inside findIncomingDeliveries: ", products);
+//   let incomingDeliveries = [];
+//   for (let i = 0; i < products.length; i++) {
+//     const product = products[i];
+//     const incomingDeliveryStatus = products.stock.incomingDelivery;
+//     // if (incomingDeliveryStatus == true) {
+//     //   incomingDeliveries.push(products);
+//     //   console.log("incomingDeliveries inside if: ", incomingDeliveries);
+//     // }
+//   }
+//   console.log("incomingDeliveries: ", incomingDeliveries);
+//   return incomingDeliveries;
+// }
 
+// const productsThatNeedToBeReceived = findIncomingDeliveries(products);
+// console.log("productsThatNeedToBeReceived: ", productsThatNeedToBeReceived);
 
 // ----- Section -----
 
@@ -191,7 +334,11 @@ function ()
 // - that takes an array as a parameter
 // - returns an object that represents an "iPad Mini"
 
-// const iPadMini = function();
+// function findIpadMini() {
+//   console.log("Inside findIpadMini: ", array);
+// }
+
+// const iPadMini = findIpadMini([]);
 
 // ----- CHALLENGE -----
 
@@ -243,9 +390,28 @@ const cart = [
 
 // Write a function here...
 // - that takes an array as a parameter
-// - returns a number that rerpresents the total of the items in the cart
+// - returns a number that rerpresents the total price of the items in the cart
 
 // const totalPrice = function()
+
+// const product = cart.product;      /// to ask Steven !!!
+// console.log("display product: ", product);
+
+function totalPrice(cart) {
+  let totalAmount = 0;
+
+  for (let i = 0; i < cart.length; i++) {
+    const item = cart[i].product;
+    const quantity = cart[i].quantity;
+    const price = item.price * quantity;
+
+    totalAmount = totalAmount + price;
+  }
+  return totalAmount;
+}
+
+const displayTotalPrice = totalPrice(cart);
+console.log("this is the displayTotalPrice in £: ", displayTotalPrice);
 
 // ----- Section ----- **
 
@@ -255,6 +421,20 @@ const cart = [
 
 // const quantityOfItemsInCart = function()
 
+function quantityOfItemsInCart(cart) {
+  let total = 0;
+  for (let i = 0; i < cart.length; i++) {
+    const item = cart[i];
+    const quantity = item.quantity;
+
+    total = total + quantity;
+  }
+  return total;
+}
+
+const totalQuantInCart = quantityOfItemsInCart(cart);
+console.log("this is totalQuantInCart: ", totalQuantInCart);
+
 // ----- Section ----- **
 
 // Write a function here...
@@ -262,7 +442,24 @@ const cart = [
 // - returns a string of the information about a product in the cart
 //      => "iPhone 12 | Mobile - £1400 x 2 || £2800"
 
-// const recieptRow = function()
+// let userInput = prompt("Please chose one out of the 4 items");
+// userInput = userInput - 1;
+
+function receiptRow(item) {
+  // console.log("this are the items in ReceiptRow: ", item);
+  const name = item.product.name;
+  const type = item.product.type;
+  const price = item.product.price;
+  const quant = item.quantity;
+  const quantity = item.quantity * price;
+  const quantityPerCategoryPrice = `${type} - £${price} x ${quant}`;
+  const row = `${name} | ${quantityPerCategoryPrice} | ${quantity}`;
+  return row;
+}
+
+const showreceiptRow = receiptRow(cart[0]);
+console.log("this is showreceiptRow: ", showreceiptRow);
+// alert(showreceiptRow);
 
 // ----- Section ----- **
 
@@ -272,5 +469,17 @@ const cart = [
 // TIP: Re-use the above function for "receiptRow"
 
 // const receiptMessage = function()
+function receiptMessage(cart) {
+  for (let i = 0; i < cart.length; i++) {
+    console.log("Iteneration # ", i + 1);
+    const showreceiptRow = receiptRow(cart[i]);
+    const individualItemDescribed = showreceiptRow;
+    // individualItemDescribed = ` ${showreceiptRow} \n`;
+    console.log("showreceiptRow inside for:  ", showreceiptRow);
+  }
+  return showreceiptRow;
+}
+// console.log("what:", showreceiptRow);
 
-// console.log("receiptMessage: ", receiptMessage)
+const printedreceiptMessage = receiptMessage(cart);
+console.log("receiptMessage: ", printedreceiptMessage);
